@@ -6,7 +6,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import brmibd.BRMIBD;
+import BRMIBD.BRMIBD;
 /**
  *
  * @author Carlos-Aqln
