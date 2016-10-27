@@ -280,7 +280,7 @@ public class formLibro extends javax.swing.JFrame {
     }//GEN-LAST:event_txtsubtituloActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        // INGRESAR LIBRO
+        // CODIGO INGRESAR LIBRO
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         int cod;
         String nom,tit,subt,edi,autor,serie,freg,cant;
