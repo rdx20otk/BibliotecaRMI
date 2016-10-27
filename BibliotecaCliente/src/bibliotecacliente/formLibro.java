@@ -14,7 +14,7 @@ import brmibd.BRMIBD;
 public class formLibro extends javax.swing.JFrame {
 
     /**
-     * Creates new form formLibro
+     * Grupo 03 Cliente/Servidor
      */
     public formLibro() {
         initComponents();
