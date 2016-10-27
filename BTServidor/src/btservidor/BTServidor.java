@@ -10,8 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import brmibd.BRMIBD;
-import brmibd.Libro;
+import BRMIBD.BRMIBD;
+import BRMIBD.Libro;
 
 /**
  *
