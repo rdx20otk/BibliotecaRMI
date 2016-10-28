@@ -20,7 +20,7 @@ public interface BRMIBD extends Remote {
     public ArrayList<Libro>buscar_Libro(int codigo)throws RemoteException; 
  
  public ArrayList<Libro> mostrar() throws RemoteException;
- 
+/*eeeeeeeeeeeeeeeee*/ 
   public boolean eliminar (int codigo) throws RemoteException;
   
 public boolean modificar (int codigo, String nombre, String titulo,
