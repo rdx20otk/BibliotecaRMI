@@ -12,7 +12,7 @@ package bibliotecacliente;
 public class formPrincipal extends javax.swing.JFrame {
 
     /**
-     * Creates new form formPrincipal
+     * grupo 03 cliente/Servidor
      */
     public formPrincipal() {
         initComponents();
