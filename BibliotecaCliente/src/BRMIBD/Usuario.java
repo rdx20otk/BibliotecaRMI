@@ -11,7 +11,7 @@ public class Usuario {
         this.user = user;
         this.Password = Password;
     }
-
+//vnbvnbvnbvnb
     public Usuario(String user, String Password) {
         this.user = user;
         this.Password = Password;
