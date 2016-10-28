@@ -1,16 +1,9 @@
+package RMIBD;
 
-package BRMIBD;
-
-/**
- *
- * @author Carlos-Aqln
- */
 import java.io.Serializable;
-/**
- *
- * @author Carlos-Aqln
- */
-public class Libro implements Serializable{
+
+public class Libro implements Serializable {
+
     private int codigo;
     private String nombre;
     private String titulo;
@@ -104,5 +97,5 @@ public class Libro implements Serializable{
     public void setCantidad(String cantidad) {
         this.cantidad = cantidad;
     }
-    
+
 }
