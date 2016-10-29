@@ -4,7 +4,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import javax.swing.JOptionPane;
 import bibliotecacliente.menu_principal;
-import RMIBD.RMIBD;
+import BRMIBD.RMIBD;
 
 public class Login extends javax.swing.JFrame {
 
@@ -109,7 +109,7 @@ public class Login extends javax.swing.JFrame {
         boolean f = false;
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4060/BRMIBD");
 
             f = interfaz.ValidarUsuario(txtuser.getText(), txtpass.getText());
             if (f == true) {

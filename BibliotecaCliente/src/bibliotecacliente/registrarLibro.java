@@ -6,7 +6,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import RMIBD.RMIBD;
+import BRMIBD.RMIBD;
 
 public class registrarLibro extends javax.swing.JFrame {
 
@@ -16,7 +16,7 @@ public class registrarLibro extends javax.swing.JFrame {
 
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4060/BRMIBD");
             interfaz.mostrar();
 
             while (modelo.getRowCount() > 0) {
@@ -330,7 +330,7 @@ public class registrarLibro extends javax.swing.JFrame {
 
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4060/BRMIBD");
             interfaz.Ingresar(cod, nom, tit, subt, edi, autor, serie, freg, cant);
             JOptionPane.showMessageDialog(null, "Registro Con Exito");
             while (modelo.getRowCount() > 0) {
@@ -385,7 +385,7 @@ public class registrarLibro extends javax.swing.JFrame {
 
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4060/BRMIBD");
             interfaz.modificar(cod, nom, tit, subt, edi, autor, serie, freg, cant);
             JOptionPane.showMessageDialog(null, "modificado Con Exito");
             while (modelo.getRowCount() > 0) {
@@ -436,7 +436,7 @@ public class registrarLibro extends javax.swing.JFrame {
 
                 try {
                     Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-                    RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+                    RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4060/BRMIBD");
                     cod = (int) modelo.getValueAt(a, 0);
                     interfaz.eliminar(cod);
                     modelo.removeRow(a);
@@ -453,7 +453,7 @@ public class registrarLibro extends javax.swing.JFrame {
         // Buscar Libro
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4060/BRMIBD");
             int cod;
 
             cod = Integer.parseInt(txtcodigo.getText());
