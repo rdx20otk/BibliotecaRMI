@@ -1,4 +1,4 @@
-package servidor;
+package btservidor;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -10,8 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import RMIBD.Libro;
-import RMIBD.RMIBD;
+import BRMIBD.Libro;
+import BRMIBD.RMIBD;
 
 public class Servidor extends UnicastRemoteObject implements RMIBD {
 
@@ -23,9 +23,10 @@ public class Servidor extends UnicastRemoteObject implements RMIBD {
         try {
 
             Registry registro = LocateRegistry.createRegistry(4567);
-            registro.rebind("rmi://localhost:4567", new Servidor());
+            registro.rebind("rmi://localhost:4060/BRMIBD", new Servidor());
             System.out.println("Servidor Activo");
 
+            
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -41,7 +42,7 @@ public class Servidor extends UnicastRemoteObject implements RMIBD {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/biblioteca", "root", "");
             String sentencia = "select * from libro where codigo='" + codigo + "'";
             Statement stm = (Statement) cn.createStatement();
             ResultSet rs = stm.executeQuery(sentencia);
@@ -76,7 +77,7 @@ public class Servidor extends UnicastRemoteObject implements RMIBD {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/biblioteca", "root", "");
             String sentencia = "select * from libro";
             Statement stm = (Statement) cn.createStatement();
             ResultSet rs = stm.executeQuery(sentencia);
@@ -108,7 +109,7 @@ public class Servidor extends UnicastRemoteObject implements RMIBD {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/biblioteca", "root", "");
             String sentencia = "delete from libro where codigo=?";
             PreparedStatement ps = cn.prepareStatement(sentencia);
             ps.setInt(1, codigo);
@@ -130,7 +131,7 @@ public class Servidor extends UnicastRemoteObject implements RMIBD {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/biblioteca", "root", "");
             String sentencia = "update libro set nombre=?, titulo=?, subtitulo=?, editorial=?, autor=?, serie=?, fecha=?, cantidad=? where codigo=?";
             PreparedStatement ps = cn.prepareStatement(sentencia);
 
@@ -161,7 +162,7 @@ public class Servidor extends UnicastRemoteObject implements RMIBD {
         exito = false;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/biblioteca", "root", "");
             String sentencia = "insert into libro(codigo,nombre,titulo,subtitulo,editorial,autor,serie,fecha,cantidad) values (?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = cn.prepareStatement(sentencia);
             ps.setInt(1, cod);
@@ -190,7 +191,7 @@ public class Servidor extends UnicastRemoteObject implements RMIBD {
         exito = false;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/biblioteca", "root", "");
 
             String sql = "select * from usuario where user = '"
                     + user + "' and password = '" + password + "' ";

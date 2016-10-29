@@ -1,4 +1,4 @@
-package RMIBD;
+package BRMIBD;
 
 import java.io.Serializable;
 
