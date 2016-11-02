@@ -1,5 +1,5 @@
 package BRMIBD;
-
+//Declaramos Variables
 import java.io.Serializable;
 
 public class Libro implements Serializable {
