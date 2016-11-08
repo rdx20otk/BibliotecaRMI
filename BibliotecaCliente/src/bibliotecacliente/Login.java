@@ -109,11 +109,12 @@ public class Login extends javax.swing.JFrame {
         boolean f = false;
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4060/BRMIBD");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
 
             f = interfaz.ValidarUsuario(txtuser.getText(), txtpass.getText());
+            
             if (f == true) {
-                JOptionPane.showMessageDialog(null, "Bienvenido Usuario al Sistema!");
+                JOptionPane.showMessageDialog(null, "Bienvenido Usuario al Sistema");
 
                 menu_principal menu = new menu_principal();
                 menu.setLocationRelativeTo(null);

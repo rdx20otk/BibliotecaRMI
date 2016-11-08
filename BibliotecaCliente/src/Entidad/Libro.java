@@ -1,5 +1,5 @@
-package BRMIBD;
-//Declaramos Variables
+package Entidad;
+
 import java.io.Serializable;
 
 public class Libro implements Serializable {
@@ -10,19 +10,25 @@ public class Libro implements Serializable {
     private String subtitulo;
     private String editorial;
     private String autor;
+    private String categoria;
+    private String subcategoria;
+    private String procedencia;
     private String serie;
-    private String fecharegistro;
+    private String fecha;
     private String cantidad;
 
-    public Libro(int codigo, String nombre, String titulo, String subtitulo, String editorial, String autor, String serie, String fecharegistro, String cantidad) {
+    public Libro(int codigo, String nombre, String titulo, String subtitulo, String editorial, String autor, String categoria, String subcategoria, String procedencia, String serie, String fecha, String cantidad) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.titulo = titulo;
         this.subtitulo = subtitulo;
         this.editorial = editorial;
         this.autor = autor;
+        this.categoria = categoria;
+        this.subcategoria = subcategoria;
+        this.procedencia = procedencia;
         this.serie = serie;
-        this.fecharegistro = fecharegistro;
+        this.fecha = fecha;
         this.cantidad = cantidad;
     }
 
@@ -74,6 +80,30 @@ public class Libro implements Serializable {
         this.autor = autor;
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getSubcategoria() {
+        return subcategoria;
+    }
+
+    public void setSubcategoria(String subcategoria) {
+        this.subcategoria = subcategoria;
+    }
+
+    public String getProcedencia() {
+        return procedencia;
+    }
+
+    public void setProcedencia(String procedencia) {
+        this.procedencia = procedencia;
+    }
+
     public String getSerie() {
         return serie;
     }
@@ -82,12 +112,12 @@ public class Libro implements Serializable {
         this.serie = serie;
     }
 
-    public String getFecharegistro() {
-        return fecharegistro;
+    public String getFecha() {
+        return fecha;
     }
 
-    public void setFecharegistro(String fecharegistro) {
-        this.fecharegistro = fecharegistro;
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     public String getCantidad() {
