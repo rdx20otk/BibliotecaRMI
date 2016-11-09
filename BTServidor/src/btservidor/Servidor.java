@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import Entidad.Libro;
+import Entidad.Prestamo;
+import Entidad.ListarPrestamo;
 import Entidad.Procedencia;
 import BRMIBD.RMIBD;
 import Entidad.subCategoria;
@@ -28,7 +30,7 @@ public class Servidor extends UnicastRemoteObject implements RMIBD {
         try {
 
             Registry registro = LocateRegistry.createRegistry(4567);
-            registro.rebind("rmi://localhost:4567", new Servidor());
+            registro.rebind("rmi://localhost:4567/BRMIBD", new Servidor());
             System.out.println("Servidor Activo");
 
         } catch (Exception ex) {
@@ -74,6 +76,156 @@ public class Servidor extends UnicastRemoteObject implements RMIBD {
         return lisempleado;
 
     }
+    /*
+    *********************************************************************************************************
+    ****************************METODOS DE PRESTAR LIBROS**********************************
+    */
+    @Override
+    public ArrayList<Prestamo> BuscarPrestamo(int idPrestamo) throws RemoteException {
+        int cdp, cdl,cdu;
+        String fecha,fechadv;
+
+        ArrayList<Prestamo> lisPrestamo = new ArrayList<>();
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
+            String sentencia = "select * from prestamo where idPrestamo='" + idPrestamo + "'";
+            Statement stm = (Statement) cn.createStatement();
+            ResultSet rs = stm.executeQuery(sentencia);
+            while (rs.next()) {
+                cdp = rs.getInt(1);
+                cdl = rs.getInt(2);
+                cdu = rs.getInt(3);
+                fecha = rs.getString(4);
+                fechadv = rs.getString(5);
+                Prestamo oprestamo = new Prestamo(cdp,cdl,cdu,fecha,fechadv);
+                lisPrestamo.add(oprestamo);
+            }
+            cn.close();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return lisPrestamo;
+
+    }
+    @Override
+    public ArrayList<ListarPrestamo> mostrarPrestamos() throws RemoteException {
+
+        int codp, codl, codu;
+        String fech,fechd,nomL, titulo, autor, nomu,apllu, diru;
+
+        ArrayList<ListarPrestamo> listaPrestamo = new ArrayList<>();
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
+            String sentencia = "SELECT prestamo.idPrestamo, prestamo.Fecha,prestamo.FechaDevolucion, libro.codigo, libro.nombre, libro.titulo, libro.autor, usuario.idUsuario, usuario.nombre, usuario.apellido, usuario.direccion\n" +
+                               "FROM libro INNER JOIN usuario INNER JOIN prestamo\n" +
+                               "ON prestamo.codigo=libro.codigo AND prestamo.idUsuario=usuario.idUsuario";
+            Statement stm = (Statement) cn.createStatement();
+            ResultSet rs = stm.executeQuery(sentencia);
+            while (rs.next()) {
+                codp = rs.getInt(1);
+                fech = rs.getString(2);
+                fechd = rs.getString(3);
+                codl = rs.getInt(4);
+                nomL = rs.getString(5);
+                titulo = rs.getString(6);
+                autor = rs.getString(7);
+                codu = rs.getInt(8);
+                nomu = rs.getString(9);
+                apllu = rs.getString(10);
+                diru = rs.getString(11);
+        
+
+                ListarPrestamo oprestamo = new ListarPrestamo(codp, fech, fechd, codl, nomL, titulo, autor, codu, nomu, apllu, diru);
+                listaPrestamo.add(oprestamo);
+            }
+            cn.close();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return listaPrestamo;
+    }
+    
+    
+    
+    @Override
+    public boolean IngresarPrestamo(int codigoL, int idUsuario,String Fecha, String FechaDevolucion) throws RemoteException {
+
+        boolean exito;
+        exito = false;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/biblioteca", "root", "");
+            String sentencia = "insert into prestamo(codigo,idUsuario,Fecha,FechaDevolucion) values (?,?,?,?)";
+            PreparedStatement ps = cn.prepareStatement(sentencia);
+           // ps.setInt(1, idPrestamo);
+            ps.setInt(1, codigoL);
+            ps.setInt(2, idUsuario);
+            ps.setString(3, Fecha);
+            ps.setString(4, FechaDevolucion);
+            
+            ps.executeUpdate();
+            exito = true;
+            cn.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return exito;
+
+    }
+    @Override
+    public boolean ModificarPrestamo(int idPrestamo,int codigoL, int idUsuario,String Fecha, String FechaDevolucion) throws RemoteException {
+
+        boolean exito;
+        exito = false;
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
+            String sentencia = "update prestamo set codigo=?, idUsuario=?, Fecha=?, FechaDevolucion=? where idPrestamo=?";
+            PreparedStatement ps = cn.prepareStatement(sentencia);
+
+            ps.setInt(1, codigoL);
+            ps.setInt(2, idUsuario);
+            ps.setString(3, Fecha);
+            ps.setString(4, FechaDevolucion);
+            
+            ps.setInt(5, idPrestamo);
+
+            ps.executeUpdate();
+            exito = true;
+            cn.close();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return exito;
+
+    }
+     @Override
+    public boolean eliminarPrestamo(int idPrestamo) throws RemoteException {
+
+        boolean exito;
+        exito = false;
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
+            String sentencia = "delete from prestamo where idPrestamo=?";
+            PreparedStatement ps = cn.prepareStatement(sentencia);
+            ps.setInt(1, idPrestamo);
+            ps.executeUpdate();
+            exito = true;
+            cn.close();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return exito;
+
+    }
+    //********************************************************************************************
 
     @Override
     public ArrayList<Libro> mostrar() throws RemoteException {
@@ -214,7 +366,7 @@ public class Servidor extends UnicastRemoteObject implements RMIBD {
             Class.forName("com.mysql.jdbc.Driver");
             Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
 
-            String sql = "select * from usuario where user = '"
+            String sql = "select * from administrador where user = '"
                     + user + "' and password = '" + password + "' ";
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
