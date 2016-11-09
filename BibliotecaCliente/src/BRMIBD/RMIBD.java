@@ -1,6 +1,8 @@
 package BRMIBD;
 
 import Entidad.subCategoria;
+import Entidad.ListarPrestamo;
+import Entidad.Prestamo;
 import Entidad.Procedencia;
 import Entidad.Libro;
 import Entidad.Editorial;
@@ -22,6 +24,18 @@ public interface RMIBD extends Remote {
 
     public boolean Ingresar(int cod, String nom, String tit, String subt, String edi, String autor, String cat, String subcat, String proc, String serie, String fec, String cant) throws RemoteException;
 
+    //**********************************************************
+    //************************************************************
+    //METODOS DEL CASO DE USO PRESTAMO DE LIBROS
+     public ArrayList<ListarPrestamo> mostrarPrestamos() throws RemoteException;  
+      public boolean IngresarPrestamo(int codigoL, int idUsuario,String Fecha, String FechaDevolucion) throws RemoteException;
+      public boolean eliminarPrestamo(int idPrestamo) throws RemoteException;
+     public boolean ModificarPrestamo(int idPrestamo,int codigoL, int idUsuario,String Fecha, String FechaDevolucion) throws RemoteException;
+    public ArrayList<Prestamo> BuscarPrestamo(int idPrestamo) throws RemoteException;
+     
+    //********************************************************************************* 
+    
+    
     /*Metodo remoto Validar Usuario*/
     public boolean ValidarUsuario(String user, String password) throws RemoteException;
 

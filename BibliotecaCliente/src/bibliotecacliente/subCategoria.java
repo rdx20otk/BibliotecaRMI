@@ -25,15 +25,27 @@ public class subCategoria extends javax.swing.JFrame {
      */
     public subCategoria() {
         initComponents();
-        
+        try {
+            Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
+            interfaz.CargarCategorias();
+            combocategorias.removeAllItems();
+          for(int i=0; i<interfaz.CargarCategorias().size();i++){
+              combocategorias.addItem(interfaz.CargarCategorias().get(i).getNombre());
+          }
 
-        cargarCategoria();
-limpiar();
+            
+        } catch (RemoteException | NotBoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+     //   cargarCategoria();
+//limpiar();
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
 
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
             interfaz.mostrarsubCategoria();
 
             while (modelo.getRowCount() > 0) {
@@ -275,12 +287,13 @@ limpiar();
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnnuevo)
-                    .addComponent(btningresar)
-                    .addComponent(btnmodificar)
-                    .addComponent(btneliminar)
-                    .addComponent(btncancelar))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btncancelar)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnnuevo)
+                        .addComponent(btningresar)
+                        .addComponent(btnmodificar)
+                        .addComponent(btneliminar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnsalir))
         );
@@ -318,7 +331,7 @@ limpiar();
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
             int cod;
 
             cod = Integer.parseInt(txtbuscar.getText());
@@ -351,7 +364,7 @@ limpiar();
 
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
 
             interfaz.IngresarsubCategoria(cod, nom, cat);
 
@@ -388,7 +401,7 @@ limpiar();
 
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
             interfaz.modificarsubCategoria(cod, nom, cat);
             JOptionPane.showMessageDialog(null, "modificado Con Exito");
             while (modelo.getRowCount() > 0) {
@@ -426,7 +439,7 @@ limpiar();
 
                 try {
                     Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-                    RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+                    RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
                     cod = (int) modelo.getValueAt(a, 0);
                     interfaz.eliminarsubCategoria(cod);
                     modelo.removeRow(a);

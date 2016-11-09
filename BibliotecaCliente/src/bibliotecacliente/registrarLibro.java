@@ -14,24 +14,91 @@ public class registrarLibro extends javax.swing.JFrame {
     public registrarLibro() {
 
         initComponents();
-        /**
-         * *****************************
-         */
+      try {//cargar Categoria
+            Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
+            interfaz.CargarCategorias();
+            combocategoria.removeAllItems();
+          for(int i=0; i<interfaz.CargarCategorias().size();i++){
+              combocategoria.addItem(interfaz.CargarCategorias().get(i).getNombre());
+          }
 
-        cargarCategoria();
+            
+        } catch (RemoteException | NotBoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+//****************************************************************************************************
+try {//cargar autor
+            Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
+            interfaz.CargarAutor();
+            comboautor.removeAllItems();
+          for(int i=0; i<interfaz.CargarAutor().size();i++){
+              comboautor.addItem(interfaz.CargarAutor().get(i).getNombre());
+          }
+
+            
+        } catch (RemoteException | NotBoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+//********************************************************************************************************
+try {//cargar EDITORIAL
+            Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
+            interfaz.CargarEditorial();
+            comboeditorial.removeAllItems();
+          for(int i=0; i<interfaz.CargarEditorial().size();i++){
+              comboeditorial.addItem(interfaz.CargarEditorial().get(i).getEditorial());
+          }
+
+            
+        } catch (RemoteException | NotBoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+//*****************************************************************************************************
+try {//cargar PROCEDENCIA
+            Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
+            interfaz.CargarProcedencia();
+            comboprocedencia.removeAllItems();
+          for(int i=0; i<interfaz.CargarProcedencia().size();i++){
+              comboprocedencia.addItem(interfaz.CargarProcedencia().get(i).getProcedencia());
+          }
+
+            
+        } catch (RemoteException | NotBoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+//**********************************************************************************************************
+try {//cargar PROCEDENCIA
+            Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
+            interfaz.CargarsubCategoria();
+            combosubcategoria.removeAllItems();
+          for(int i=0; i<interfaz.CargarsubCategoria().size();i++){
+             combosubcategoria.addItem(interfaz.CargarsubCategoria().get(i).getSubcategoria());
+          }
+
+            
+        } catch (RemoteException | NotBoundException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+//**********************************************************************************************************
+      /*  cargarCategoria();
         cargarAutor();
         cargarEditorial();
         cargarProcedencia();
         cargarsubCategoria();
         limpiar();
-        /**
+       */ /**
          * ************************
          */
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
 
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
             interfaz.mostrar();
 
             while (modelo.getRowCount() > 0) {
@@ -457,7 +524,7 @@ public class registrarLibro extends javax.swing.JFrame {
 
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
             interfaz.Ingresar(cod, nom, tit, subt, edi, autor, cat, subcat, proc, serie, fec, cant);
             JOptionPane.showMessageDialog(null, "Registro Con Exito");
             while (modelo.getRowCount() > 0) {
@@ -510,7 +577,7 @@ public class registrarLibro extends javax.swing.JFrame {
 
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
             interfaz.modificar(cod, nom, tit, subt, edi, autor, cat, subcat, proc, serie, fec, cant);
             JOptionPane.showMessageDialog(null, "modificado Con Exito");
             while (modelo.getRowCount() > 0) {
@@ -556,7 +623,7 @@ public class registrarLibro extends javax.swing.JFrame {
 
                 try {
                     Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-                    RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+                    RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
                     cod = (int) modelo.getValueAt(a, 0);
                     interfaz.eliminar(cod);
                     modelo.removeRow(a);
@@ -573,7 +640,7 @@ public class registrarLibro extends javax.swing.JFrame {
         // Buscar Libro
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
             int cod;
 
             cod = Integer.parseInt(txtcodigo.getText());

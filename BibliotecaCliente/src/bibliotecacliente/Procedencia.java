@@ -29,7 +29,7 @@ public class Procedencia extends javax.swing.JFrame {
 
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
             interfaz.mostrarProcedencia();
 
             while (modelo.getRowCount() > 0) {
@@ -317,7 +317,7 @@ public class Procedencia extends javax.swing.JFrame {
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
             int cod;
 
             cod = Integer.parseInt(txtbuscar.getText());
@@ -351,7 +351,7 @@ public class Procedencia extends javax.swing.JFrame {
 
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
 
             interfaz.IngresarProcedencia(cod, nom, desc);
 
@@ -386,7 +386,7 @@ public class Procedencia extends javax.swing.JFrame {
 
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
             interfaz.modificarProcedencia(cod, nom, desc);
             JOptionPane.showMessageDialog(null, "modificado Con Exito");
             while (modelo.getRowCount() > 0) {
@@ -424,7 +424,7 @@ public class Procedencia extends javax.swing.JFrame {
 
                 try {
                     Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-                    RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+                    RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
                     cod = (int) modelo.getValueAt(a, 0);
                     interfaz.eliminarProcedencia(cod);
                     modelo.removeRow(a);

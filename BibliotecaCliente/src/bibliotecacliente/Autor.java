@@ -36,7 +36,7 @@ public class Autor extends javax.swing.JFrame {
 
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
             interfaz.mostrarAutor();
 
             while (modelo.getRowCount() > 0) {
@@ -314,7 +314,7 @@ public class Autor extends javax.swing.JFrame {
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
             int cod;
 
             cod = Integer.parseInt(txtbuscar.getText());
@@ -346,7 +346,7 @@ public class Autor extends javax.swing.JFrame {
 
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
 
             interfaz.IngresarAutor(cod, nom);
 
@@ -379,7 +379,7 @@ public class Autor extends javax.swing.JFrame {
 
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
             interfaz.modificarAutor(cod, nom);
             JOptionPane.showMessageDialog(null, "modificado Con Exito");
             while (modelo.getRowCount() > 0) {
@@ -417,7 +417,7 @@ public class Autor extends javax.swing.JFrame {
 
                 try {
                     Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-                    RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+                    RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
                     cod = (int) modelo.getValueAt(a, 0);
                     interfaz.eliminarAutor(cod);
                     modelo.removeRow(a);

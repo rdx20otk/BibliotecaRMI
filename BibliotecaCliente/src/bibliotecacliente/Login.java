@@ -109,7 +109,7 @@ public class Login extends javax.swing.JFrame {
         boolean f = false;
         try {
             Registry registro = LocateRegistry.getRegistry("127.0.0.1", 4567);
-            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567");
+            RMIBD interfaz = (RMIBD) registro.lookup("rmi://localhost:4567/BRMIBD");
 
             f = interfaz.ValidarUsuario(txtuser.getText(), txtpass.getText());
             

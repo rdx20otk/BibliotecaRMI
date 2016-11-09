@@ -1,18 +1,18 @@
 package Entidad;
 
-public class Usuario {
+public class Administrador {
 
     private int id;
     private String user;
     private String Password;
 
-    public Usuario(int id, String user, String Password) {
+    public Administrador(int id, String user, String Password) {
         this.id = id;
         this.user = user;
         this.Password = Password;
     }
 //u
-    public Usuario(String user, String Password) {
+    public Administrador(String user, String Password) {
         this.user = user;
         this.Password = Password;
     }
